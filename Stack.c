@@ -17,11 +17,12 @@
 /******************************************************************************
  * new_Stack()
  *
- * Purpose:
+ * Purpose: Allocates and initializes a Stack struct on the heap. A pointer to
+ *      the struct is returned.
  *
  * Parameters: None.
  *
- * Returns: Stack *.
+ * Returns: Stack *. Pointer to the newly created Stack.
  *****************************************************************************/
 
 Stack * new_Stack ()
@@ -45,12 +46,13 @@ Stack * new_Stack ()
 /******************************************************************************
  * new_StackItem()
  *
- * Purpose: 
+ * Purpose: Allocates and initializes a StackItem struct on the heap with the
+ *      given generic value. A pointer to the struct is returned.
  *
  * Parameters:
- *      void *newItem -- 
+ *      void *newItem -- Generic value to put into the StackItem.
  *
- * Returns: StackItem *.
+ * Returns: StackItem *. Pointer to the newly created StackItem.
  *****************************************************************************/
 
 StackItem * new_StackItem (void *item)
@@ -73,13 +75,32 @@ StackItem * new_StackItem (void *item)
 
 
 /******************************************************************************
- * push()
+ * free_StackItem()
  *
- * Purpose:
+ * Purpose: Frees the allocated memory for the given stack item.
  *
  * Parameters:
- *      Stack *stack --
- *      StackItem newItem -- 
+ *      StackItem *stackItem -- Stack item to free.
+ *
+ * Returns: void.
+ *****************************************************************************/
+
+void free_StackItem (StackItem *stackItem)
+{
+    free(stackItem->item);
+    free(stackItem);
+} // free_StackItem()
+
+
+
+/******************************************************************************
+ * push()
+ *
+ * Purpose: Pushes the given stack item to the top of the given stack.
+ *
+ * Parameters:
+ *      Stack *stack -- Stack to push to.
+ *      StackItem newItem -- Item to push to the stack.
  *
  * Returns: int. 1 if push was successful, 0 otherwise.
  *****************************************************************************/
@@ -107,31 +128,55 @@ int push (Stack *stack, StackItem *newItem)
 
 
 /******************************************************************************
+ * pop()
  *
+ * Purpose: Removes and frees the item at the top of the given stack.
  *
+ * Parameters:
+ *      Stack *stack -- Stack to pop from.
  *
- *
- *
- *
+ * Returns: int. 1 if pop was successful, 0 otherwise.
  *****************************************************************************/
 
-StackItem * pop (Stack *stack)
+int pop (Stack *stack)
 {
-    return NULL;
+    // No stack to pop from, pop unsuccessful
+    if (stack == NULL)
+        return 0;
+
+    // Point to the item to pop
+    StackItem *poppedItem = stack->top;
+
+    // No item to pop, pop unsuccessful
+    if (poppedItem == NULL)
+        return 0;
+
+    // Rearrange pointers to detach the top item
+    if (poppedItem != NULL)
+    {
+        stack->top = poppedItem->next;
+        poppedItem->next = NULL;
+    }
+
+    // Free the memory for the popped item
+    free_StackItem(poppedItem);
+    return 1;   // Pop successful
 } // pop()
 
 
 
 /******************************************************************************
+ * peek()
  *
+ * Purpose: Returns the stack item at the top of the given stack.
  *
+ * Parameters:
+ *      Stack *stack -- Stack to check for an item.
  *
- *
- *
- *
+ * Returns: StackItem *. Stack item at the top of the given stack.
  *****************************************************************************/
 
 StackItem * peek (Stack *stack)
 {
-    return NULL;
+    return stack->top;
 } // peek()

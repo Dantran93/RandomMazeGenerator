@@ -31,9 +31,12 @@ void test_Stack ()
     push(locationStack, new_StackItem(new_Location2D(5, 10)));
     push(locationStack, new_StackItem(new_Location2D(13, 1)));
     push(locationStack, new_StackItem(new_Location2D(2, 2)));
+    pop(locationStack);
     push(locationStack, new_StackItem(new_Location2D(0, -8)));
 
-    print_LocationStack(locationStack);
+    //print_LocationStack(locationStack);
+    StackItem *stackItem = peek(locationStack);
+    print_Location2D(stackItem->item);
 }
 
 

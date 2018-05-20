@@ -36,11 +36,12 @@ typedef struct Stack
 
 
 // Function Prototypes
-Stack     * new_Stack     ();
-StackItem * new_StackItem (void *newItem);
-int         push          (Stack *stack, StackItem *newItem);
-StackItem * pop           (Stack *stack);
-StackItem * peek          (Stack *stack);
+Stack     * new_Stack      ();
+StackItem * new_StackItem  (void *newItem);
+void        free_StackItem (StackItem *stackItem);
+int         push           (Stack *stack, StackItem *newItem);
+int         pop            (Stack *stack);
+StackItem * peek           (Stack *stack);
 
 
 
