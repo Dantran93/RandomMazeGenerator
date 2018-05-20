@@ -39,8 +39,8 @@ typedef struct Stack
 Stack     * new_Stack     ();
 StackItem * new_StackItem (void *newItem);
 int         push          (Stack *stack, StackItem *newItem);
-int         pop           (Stack *stack);
-void        peek          (Stack *stack);
+StackItem * pop           (Stack *stack);
+StackItem * peek          (Stack *stack);
 
 
 

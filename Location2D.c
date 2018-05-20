@@ -29,7 +29,7 @@
 
 Location2D * new_Location2D (int row, int column)
 {
-    // Create a node, check for malloc error
+    // Create a location, check for malloc error
     Location2D *newLocation = (Location2D *)malloc(sizeof(Location2D));
     if (newLocation == NULL)
     {
@@ -37,7 +37,7 @@ Location2D * new_Location2D (int row, int column)
         exit(ERROR_OCCURRED);
     }
 
-    // Initialize the node
+    // Initialize the location
     newLocation->row    = row;
     newLocation->column = column;
 
