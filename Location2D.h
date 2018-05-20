@@ -1,8 +1,9 @@
 /******************************************************************************
  * Location2D.h
+ * Author: Daniel Tranfaglia
  *
- * Purpose:
- *
+ * Purpose: Contains the structs, constants, and function prototypes associated
+ *      with locations in a 2D grid.
  *****************************************************************************/
 
 
@@ -12,18 +13,23 @@
 
 
 
-// 
+// Struct to define a location in a 2D grid
 typedef struct Location2D
 {
-    int row;
-    int column;
+    int row;      // Vertical coordinate
+    int column;   // Horizontal coordinate
 } Location2D;
 
 
 
+// Constants
+#define ERROR_OCCURRED 1
+
+
+
 // Function Prototypes
-Location2D * new_Location2D      (int row, int column);
-char       * toString_Location2D (Location2D *location);
+Location2D * new_Location2D   (int row, int column);
+void         print_Location2D (Location2D *location);
 
 
 

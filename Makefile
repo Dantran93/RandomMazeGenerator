@@ -1,3 +1,5 @@
+# RandomMazeGenerator Makefile
+# Author: Daniel Tranfaglia
 
 all: Location2D.o RandomMazeGenerator.o
 	gcc -Wall Location2D.o RandomMazeGenerator.o -o RandomMazeGenerator
