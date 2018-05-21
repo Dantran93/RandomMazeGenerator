@@ -7,8 +7,23 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "Location2D.h"
 #include "Stack.h"
+
+
+
+// Constants
+#define TRUE           1
+#define ERROR_OCCURRED 1
+
+
+
+// Globals
+char ** maze = NULL;
+int size;
+
+
 
 
 
@@ -42,6 +57,126 @@ void test_Stack ()
 
 
 /******************************************************************************
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *****************************************************************************/
+
+int getSize ()
+{
+    int size = 0;
+    while (TRUE)
+    {
+        //
+        printf("Enter a non-negative number for size: ");
+
+        //
+        if (scanf("%d", &size) == 0 || size < 1)
+        {
+            fprintf(stderr, "Invalid input.\n");
+            exit(ERROR_OCCURRED);
+        }
+        break;
+    }
+
+    return size;
+} // getSize()
+
+
+
+/******************************************************************************
+ *
+ *
+ *
+ *
+ *
+ *
+ *****************************************************************************/
+
+void initGrid ()
+{
+    //
+    maze = (char **)calloc(size, sizeof(char *));
+    if (maze == NULL)
+    {
+        fprintf(stderr, "ERROR: No memory left!\n");
+        exit(ERROR_OCCURRED);
+    }
+
+    //
+    int i, j;
+    for (i = 0; i < size; i++)
+    {
+        maze[i] = (char *)calloc(size, sizeof(char));
+        if (maze[i] == NULL)
+        {
+            fprintf(stderr, "ERROR: No memory left!\n");
+            exit(ERROR_OCCURRED);
+        }
+    }
+
+    //
+    for (i = 0; i < size; i++)
+        for (j = 0; j < size; j++)
+            maze[i][j] = '*';
+} // initGrid()
+
+
+
+/******************************************************************************
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *****************************************************************************/
+
+void freeGrid ()
+{
+    int i;
+    for (i = 0; i < size; i++)
+        free(maze[i]);
+    free(maze);
+} // freeGrid()
+
+
+
+/******************************************************************************
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *****************************************************************************/
+
+void displayMaze ()
+{
+    int i, j;
+    for (i = 0; i < size; i++)
+    {
+        for (j = 0; j < size; j++)
+        {
+            printf("%c", maze[i][j]);
+            if (j != size-1)
+                printf(" ");
+        }
+        printf("\n");
+    }
+} // displayMaze()
+
+
+
+/******************************************************************************
  * main()
  *
  * Purpose:
@@ -53,8 +188,14 @@ void test_Stack ()
 
 int main ()
 {
-    
-    test_Stack();
+    //test_Stack();
+
+    printf("Random Maze Generator!\n");
+    size = 2 * getSize() + 1;
+
+    initGrid();
+    displayMaze();
+    freeGrid();
 
     return 0;
 } // main()
