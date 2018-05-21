@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Location2D.h"
 #include "Stack.h"
 
@@ -22,11 +23,18 @@
 // Globals
 char ** maze = NULL;
 int size;
+Stack *locationStack = NULL;
 
 
 
+// Function Prototypes
+int  getSize     ();
+void initGrid    ();
+void freeGrid    ();
+void displayMaze ();
 
 
+/*
 void print_LocationStack (Stack *stack)
 {
     StackItem *stackItem = stack->top;
@@ -53,7 +61,7 @@ void test_Stack ()
     StackItem *stackItem = peek(locationStack);
     print_Location2D(stackItem->item);
 }
-
+*/
 
 
 /******************************************************************************
@@ -176,6 +184,24 @@ void displayMaze ()
 
 
 
+/*
+ */
+
+void generateMaze ()
+{
+    srand(time(0));
+
+    int startRow = 2*(rand() % ((size-1)/2))+1;
+    int startCol = 2*(rand() % ((size-1)/2))+1;
+    
+    Location2D *startLocation = new_Location2D(startRow, startCol);
+
+    maze[startRow][startCol] = '.';
+
+} // generateMaze()
+
+
+
 /******************************************************************************
  * main()
  *
@@ -189,13 +215,14 @@ void displayMaze ()
 int main ()
 {
     //test_Stack();
-
-    printf("Random Maze Generator!\n");
+    
+    printf("Random Maze Generator!\n\n");
     size = 2 * getSize() + 1;
 
     initGrid();
+    generateMaze();
     displayMaze();
     freeGrid();
-
+    
     return 0;
 } // main()
